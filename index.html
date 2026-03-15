@@ -1,42 +1,338 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Information - Kumar Chhetri</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumar Bahadur Chhetri · Entrepreneur & Trainer</title>
+    <!-- Tailwind via CDN + a touch of custom smoothness -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome 6 (free) for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        /* subtle gradient overlay for hero */
+        .hero-gradient {
+            background: linear-gradient(105deg, #0b2b3f 0%, #1b4a5f 100%);
+        }
+        /* card hover effect */
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.02);
+        }
+        /* profile image placeholder simulation – replace with actual /images/profile.jpg */
+        .profile-bg {
+            background-color: #2c5f7b;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200"><circle cx="100" cy="80" r="40" fill="%23a8d8ea"/><circle cx="100" cy="180" r="60" fill="%23a8d8ea"/></svg>');
+            background-size: cover;
+            background-position: center 20%;
+        }
+        /* if actual image exists, it will override */
+        .profile-image {
+            object-fit: cover;
+            object-position: center;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body class="font-sans antialiased text-gray-800 bg-gray-50">
 
-  <div class="bg-white shadow-xl rounded-2xl p-8 max-w-sm text-center">
-    <img 
-      src="https://scontent.fktm1-1.fna.fbcdn.net/v/t39.30808-6/555433374_122101658745037979_6522831740830566385_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=xF-LgAZNuIcQ7kNvwHq46OR&_nc_oc=Admwstu1AjLwffzgYTmW9QCK3uLjtMCYJok5mVPLgYDGY4pyhtJbrKuYVuLQz2fkhd8&_nc_zt=23&_nc_ht=scontent.fktm1-1.fna&_nc_gid=cL0SEmDu7eRLFtrfPEyFLw&oh=00_AfhtNOA3caBBWvmQd96Qo2H0SOq8YlKP3aS-9VLebFUeGA&oe=691F73EA"
-      alt="Profile picture of Kumar Chhetri"
-      class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500"
-    >
+    <!-- NAVIGATION (sticky, responsive) -->
+    <nav class="sticky top-0 z-30 bg-white/90 backdrop-blur-sm shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- logo / name -->
+                <a href="#home" class="text-xl font-bold text-teal-800 tracking-tight">K<span class="text-amber-700">.Chhetri</span></a>
+                <!-- desktop menu (hidden on mobile) -->
+                <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-700">
+                    <a href="#home" class="hover:text-teal-700 transition">Home</a>
+                    <a href="#about" class="hover:text-teal-700 transition">About</a>
+                    <a href="#education" class="hover:text-teal-700 transition">Education</a>
+                    <a href="#businesses" class="hover:text-teal-700 transition">Businesses</a>
+                    <a href="#social" class="hover:text-teal-700 transition">Social</a>
+                    <a href="#programs" class="hover:text-teal-700 transition">Trainings</a>
+                    <a href="#gallery" class="hover:text-teal-700 transition">Gallery</a>
+                    <a href="#contact" class="hover:text-teal-700 transition">Contact</a>
+                </div>
+                <!-- mobile menu button (simple anchor + icon) -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobileMenuBtn" class="text-gray-600 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- mobile dropdown (hidden by default) -->
+            <div id="mobileMenu" class="hidden md:hidden pb-3 space-y-1 text-sm font-medium">
+                <a href="#home" class="block py-2 px-1 hover:bg-teal-50 rounded">Home</a>
+                <a href="#about" class="block py-2 px-1 hover:bg-teal-50 rounded">About</a>
+                <a href="#education" class="block py-2 px-1 hover:bg-teal-50 rounded">Education</a>
+                <a href="#businesses" class="block py-2 px-1 hover:bg-teal-50 rounded">Businesses</a>
+                <a href="#social" class="block py-2 px-1 hover:bg-teal-50 rounded">Social</a>
+                <a href="#programs" class="block py-2 px-1 hover:bg-teal-50 rounded">Programs</a>
+                <a href="#gallery" class="block py-2 px-1 hover:bg-teal-50 rounded">Gallery</a>
+                <a href="#contact" class="block py-2 px-1 hover:bg-teal-50 rounded">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-    <h1 class="text-2xl font-semibold text-gray-800 mb-2">Kumar Chhetri</h1>
+    <!-- HOME section (hero) -->
+    <section id="home" class="hero-gradient text-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+            <div class="flex flex-col md:flex-row items-center gap-10">
+                <!-- profile image (placeholder with real path) -->
+                <div class="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-white shadow-xl bg-white">
+                    <img src="./images/IMG_0240.JPG.jpeg" alt="Kumar Bahadur Chhetri" class="w-full h-full object-cover profile-image" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2240%22 r=%2225%22 fill=%22%233d7b94%22/><circle cx=%2250%22 cy=%2290%22 r=%2235%22 fill=%22%233d7b94%22/></svg>';">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-2">Kumar Bahadur Chhetri</h1>
+                    <p class="text-xl md:text-2xl text-cyan-100 mb-3">Entrepreneur · Trainer · Community Leader</p>
+                    <div class="flex flex-wrap gap-3 justify-center md:justify-start text-sm">
+                        <span class="bg-white/20 px-4 py-1 rounded-full"><i class="fas fa-map-marker-alt mr-1"></i>Kawasoti-08, Nawalpur</span>
+                        <span class="bg-white/20 px-4 py-1 rounded-full"><i class="fas fa-phone-alt mr-1"></i>9869585494</span>
+                        <span class="bg-white/20 px-4 py-1 rounded-full"><i class="far fa-envelope mr-1"></i>kumar@softworica.com</span>
+                    </div>
+                    <div class="gap-4 mt-4 flex justify-center md:justify-start">
+                      <a href="https://www.facebook.com/share/1DVLReg1yu/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-facebook text-2xl text-blue-600 hover:text-blue-800"></i>
+                      </a>
+                      <a href="https://www.instagram.com/xetrykumar2025?igsh=MXAyaDd5b2p1MjR4cQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-instagram text-2xl text-pink-600 hover:text-pink-800"></i>
+                      </a>
+                      <a href="https://www.tiktok.com/@kumar.chhettri?_r=1&_t=ZS-94hjpT35pu3" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-tiktok text-2xl text-black hover:text-gray-800"></i>
+                      </a>
+                      <a href="https://x.com/kumar_imkumar12?s=21" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-twitter text-2xl text-blue-400 hover:text-blue-600"></i>
+                      </a>
+                      <a href="https://wa.me/message/XKLJQU462UTYL1?src=qr" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-whatsapp text-2xl text-green-500 hover:text-green-700"></i>
+                      </a>
+                    </div>
+                    <!-- quick action button -->
+                    <div class="mt-6 flex gap-3 flex-wrap justify-center md:justify-start">
+                        <a href="#contact" class="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-2 rounded-full shadow transition">📬 Get in touch</a>
+                        <a href="#about" class="bg-transparent border border-white hover:bg-white/10 text-white font-semibold px-6 py-2 rounded-full transition">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="text-left space-y-3">
-      <div class="flex items-center gap-2">
-        <span class="font-medium text-gray-700 w-24">Email:</span>
-        <span class="text-gray-600">kumar@softworica.com</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="font-medium text-gray-700 w-24">Contact:</span>
-        <span class="text-gray-600">9869585494</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="font-medium text-gray-700 w-24">Address:</span>
-        <span class="text-gray-600">Kawasoti -8, Nawalpur</span>
-      </div>
+    <!-- ABOUT section (personal background) -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 border-l-8 border-teal-600 pl-4">About Me</h2>
+            <div class="bg-teal-50 p-6 md:p-8 rounded-2xl shadow-sm mt-6">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    I’m <strong>Kumar Bahadur Chhetri</strong> – an entrepreneur, trainer, and community enthusiast from <strong>Kawasoti, Nawalpur</strong>. 
+                    After completing my Bachelor's in 2078 BS, I founded multiple ventures to serve my local community. 
+                    Leading <strong>Softworica (IT company), Eduhub Global (consultancy), and Impulse College (vocational training), KISHM(Kawasoti Institute of Hospitality Management)</strong> keeps me busy, 
+                    but my heart lies in youth empowerment and mental wellness. I’ve trained hundreds in public speaking, personal skills, 
+                    and mental health awareness. I believe in building both businesses and better humans.
+                </p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 text-center">
+                    <div><i class="fas fa-briefcase text-teal-600 text-2xl"></i><p class="font-semibold mt-1">3 Ventures</p></div>
+                    <div><i class="fas fa-chalkboard-teacher text-teal-600 text-2xl"></i><p class="font-semibold mt-1">Trainer</p></div>
+                    <div><i class="fas fa-heart text-teal-600 text-2xl"></i><p class="font-semibold mt-1">Mental wellness</p></div>
+                    <div><i class="fas fa-users text-teal-600 text-2xl"></i><p class="font-semibold mt-1">Youth mentor</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION + bachelor details -->
+    <section id="education" class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 border-l-8 border-teal-600 pl-4">Education</h2>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <!-- SLC -->
+                <div class="bg-white p-5 rounded-xl shadow card-hover">
+                    <div class="flex items-center gap-3"><i class="fas fa-school text-2xl text-teal-700"></i><h3 class="text-xl font-bold">SLC (SEE) · 2071 BS</h3></div>
+                    <p class="text-gray-600 mt-2">Gyanodaya Secondary School, Kawasoti</p>
+                </div>
+                <!-- +2 -->
+                <div class="bg-white p-5 rounded-xl shadow card-hover">
+                    <div class="flex items-center gap-3"><i class="fas fa-graduation-cap text-2xl text-teal-700"></i><h3 class="text-xl font-bold">+2 (Higher Secondary) · 2073 BS</h3></div>
+                    <p class="text-gray-600 mt-2">Oxford College of Science & Management, Gaindakot</p>
+                </div>
+                <!-- Bachelor -->
+                <div class="bg-white p-5 rounded-xl shadow md:col-span-2 card-hover">
+                    <div class="flex items-center gap-3"><i class="fas fa-university text-2xl text-teal-700"></i><h3 class="text-xl font-bold">Bachelor's Degree BSC CSIT · Completed 2078 BS</h3></div>
+                    <p class="text-gray-600 mt-2">Lumbini ICT Campus, Gaindakot</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- BUSINESSES (professional experience) - updated with 4 items -->
+<section id="businesses" class="py-16 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 border-l-8 border-teal-600 pl-4">My Businesses</h2>
+        <!-- grid adapts: on medium screens 2 columns, large 4 columns (for 4 items) -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+            <!-- Softworica -->
+            <div class="border border-gray-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col">
+                <i class="fas fa-laptop-code text-4xl text-teal-600 mb-3"></i>
+                <h3 class="text-xl font-bold"><a href="https://softworica.com" target="_blank" rel="noopener noreferrer">Softworica</a></h3>
+                <p class="text-gray-500 text-sm uppercase tracking-wide">Managing Director / Owner</p>
+                <p class="text-gray-700 mt-2 text-sm">IT company based in Kawasoti – software, web & digital solutions.</p>
+            </div>
+            <!-- Eduhub Global -->
+            <div class="border border-gray-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col">
+                <i class="fas fa-globe-asia text-4xl text-amber-600 mb-3"></i>
+                <h3 class="text-xl font-bold"><a href="https://www.eduhubglobal.com.au" target="_blank" rel="noopener noreferrer">Eduhub Global</a></h3>
+                <p class="text-gray-500 text-sm uppercase tracking-wide">Owner / Manager</p>
+                <p class="text-gray-700 mt-2 text-sm">Educational consultancy in Kawasoti guiding students abroad.</p>
+            </div>
+            <!-- Impulse College -->
+            <div class="border border-gray-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col">
+                <i class="fas fa-mug-hot text-4xl text-amber-700 mb-3"></i>
+                <h3 class="text-xl font-bold"><a href="https://impulsecollege.com" target="_blank" rel="noopener noreferrer">Impulse College</a></h3>
+                <p class="text-gray-500 text-sm uppercase tracking-wide">Owner</p>
+                <p class="text-gray-700 mt-2 text-sm">Vocational training – barista & cafe skills, empowering youth.</p>
+            </div>
+            <!-- NEW: Kawasoti Institute of Hospitality Management -->
+            <div class="border border-gray-200 p-5 rounded-2xl shadow-sm hover:shadow-md transition flex flex-col">
+                <i class="fas fa-utensils text-4xl text-amber-700 mb-3"></i> <!-- different icon for distinction -->
+                <h3 class="text-xl font-bold"><a href="https://www.kishmkawasoti.com" target="_blank" rel="noopener noreferrer">KISHM</a></h3>
+                <p class="text-gray-500 text-sm uppercase tracking-wide">CTO</p>
+                <p class="text-gray-700 mt-2 text-sm">Vocational training – barista & cafe skills, empowering youth.</p>
+            </div>
+        </div>
+        <!-- optional subtle note: the four pillars -->
+        <p class="text-center text-gray-500 text-sm mt-6 italic">Building businesses that educate, innovate, and empower.</p>
     </div>
+</section>
+    <!-- SOCIAL WORK + TRAINING ACTIVITIES (merged into one section) -->
+    <section id="social" class="py-16 bg-teal-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 border-l-8 border-teal-600 pl-4">Social Work & Training</h2>
+            <div class="grid md:grid-cols-2 gap-6 mt-8">
+                <!-- left column: community work -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-2xl font-semibold flex items-center gap-2"><i class="fas fa-hand-holding-heart text-teal-600"></i>Community involvement</h3>
+                    <ul class="mt-4 space-y-3">
+                        <li class="flex gap-3"><span class="bg-teal-100 h-6 w-6 rounded-full flex items-center justify-center text-teal-800 font-bold text-sm">✓</span>Mental Health / Wellness Awareness Trainer</li>
+                        <li class="flex gap-3"><span class="bg-teal-100 h-6 w-6 rounded-full flex items-center justify-center text-teal-800 font-bold text-sm">✓</span>Public Speaking Training – organizer & trainer</li>
+                        <li class="flex gap-3"><span class="bg-teal-100 h-6 w-6 rounded-full flex items-center justify-center text-teal-800 font-bold text-sm">✓</span>Personal Skills Development programs</li>
+                        <li class="flex gap-3"><span class="bg-teal-100 h-6 w-6 rounded-full flex items-center justify-center text-teal-800 font-bold text-sm">✓</span>Active in youth development & community awareness</li>
+                    </ul>
+                </div>
+                <!-- right column: expertise & interest -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <h3 class="text-2xl font-semibold flex items-center gap-2"><i class="fas fa-crown text-amber-600"></i>Skills & Interests</h3>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-teal-100 px-3 py-1 rounded-full text-sm">Public Speaking</span>
+                        <span class="bg-teal-100 px-3 py-1 rounded-full text-sm">Personal Development</span>
+                        <span class="bg-teal-100 px-3 py-1 rounded-full text-sm">Mental Wellness</span>
+                        <span class="bg-teal-100 px-3 py-1 rounded-full text-sm">IT Management</span>
+                        <span class="bg-teal-100 px-3 py-1 rounded-full text-sm">Business Management</span>
+                        <span class="bg-teal-100 px-3 py-1 rounded-full text-sm">Educational Consultancy</span>
+                        <span class="bg-amber-100 px-3 py-1 rounded-full text-sm">Youth empowerment</span>
+                        <span class="bg-amber-100 px-3 py-1 rounded-full text-sm">Skill development</span>
+                        <span class="bg-amber-100 px-3 py-1 rounded-full text-sm">Digital innovation</span>
+                        <span class="bg-amber-100 px-3 py-1 rounded-full text-sm">Career guidance</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <button class="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
-    <a href="https://wa.me/message/XKLJQU462UTYL1?src=qr" >  Contact Me </a>
-    </button>
-  </div>
+    <!-- PROGRAMS & TRAININGS (specific section) -->
+    <section id="programs" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 border-l-8 border-teal-600 pl-4">Programs & Trainings</h2>
+            <p class="text-gray-600 mt-2 mb-6">Workshops and sessions I personally lead or organize</p>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-teal-500"><i class="fas fa-brain text-teal-600 text-xl mr-2"></i>Mental Wellness Awareness</div>
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-teal-500"><i class="fas fa-microphone-alt text-teal-600 text-xl mr-2"></i>Public Speaking Mastery</div>
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-teal-500"><i class="fas fa-chart-line text-teal-600 text-xl mr-2"></i>Personal Skills Development</div>
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-amber-500"><i class="fas fa-users text-amber-600 text-xl mr-2"></i>Youth Leadership Camps</div>
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-amber-500"><i class="fas fa-laptop text-amber-600 text-xl mr-2"></i>Basic IT & Digital Literacy</div>
+                <div class="bg-gray-50 p-5 rounded-xl border-l-4 border-amber-500"><i class="fas fa-coffee text-amber-600 text-xl mr-2"></i>Barista & Café Skills (Impulse)</div>
+            </div>
+        </div>
+    </section>
 
+    <!-- GALLERY (placeholder / message) -->
+    <section id="gallery" class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2 border-l-8 border-teal-600 pl-4">Gallery</h2>
+        <p class="text-gray-600 mt-2 mb-6">Moments from trainings, events, and community work</p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <!-- Fixed size images with exact dimensions -->
+            <div class="w-full h-48 md:h-56 overflow-hidden rounded-lg shadow-md bg-gray-200">
+                <img src="./images/IMG_5594.JPG.jpeg" 
+                     alt="Gallery Image 1" 
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="w-full h-48 md:h-56 overflow-hidden rounded-lg shadow-md bg-gray-200">
+                <img src="./images/IMG_0490.JPG.jpeg" 
+                     alt="Gallery Image 2" 
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="w-full h-48 md:h-56 overflow-hidden rounded-lg shadow-md bg-gray-200">
+                <img src="./images/IMG_5597.JPG.jpeg" 
+                     alt="Gallery Image 3" 
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="w-full h-48 md:h-56 overflow-hidden rounded-lg shadow-md bg-gray-200">
+                <img src="./images/IMG_5595.JPG.jpeg" 
+                     alt="Gallery Image 4" 
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+            <div class="w-full h-48 md:h-56 overflow-hidden rounded-lg shadow-md bg-gray-200">
+                <img src="https://softworica.com/images/opening-event-photo.png" 
+                     alt="Gallery Image 4" 
+                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- CONTACT section + address / phone / email -->
+    <section id="contact" class="py-16 bg-teal-800 text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-2 border-l-8 border-amber-400 pl-4">Contact</h2>
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+                <div>
+                    <p class="text-xl mb-4"><i class="fas fa-phone-alt mr-3 text-amber-300"></i>9869585494</p>
+                    <p class="text-xl mb-4"><i class="fas fa-envelope mr-3 text-amber-300"></i>kumar@softworica.com</p>
+                    <p class="text-xl mb-4"><i class="fas fa-map-marker-alt mr-3 text-amber-300"></i>Kawasoti-08, Nawalpur, Nepal</p>
+                </div>
+                <div class="bg-teal-700 p-5 rounded-2xl">
+                    <p class="font-semibold text-lg">📍 Address</p>
+                    <p class="mt-2">Softworica / Eduhub Global / Impulse College<br>Kawasoti municipality, Nawalpur</p>
+                    <p class="mt-4 text-amber-200 text-sm">Prefer call or email – I usually respond within a day.</p>
+                </div>
+            </div>
+            <!-- simple map placeholder (text) -->
+            <div class="mt-6 text-center text-teal-200 text-sm border-t border-teal-600 pt-6">
+                <i class="fas fa-map-marked-alt mr-1"></i>  Kawasoti-08, Nawalpur — open for collaborations.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-400 py-6 text-center text-sm">
+        © 2025 Kumar Bahadur Chhetri. All rights reserved. — designed with Tailwind CSS
+    </footer>
+
+    <!-- tiny script for mobile menu toggle -->
+    <script>
+        const btn = document.getElementById('mobileMenuBtn');
+        const menu = document.getElementById('mobileMenu');
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+            // close after clicking any link (optional)
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                });
+            });
+        }
+    </script>
 </body>
 </html>
